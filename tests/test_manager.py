@@ -7,6 +7,7 @@ from src.simple_account_manager.manager import Manager
 
 
 class TestManager:
+    """Tests for the class Manager."""
 
     def test_new_manager_with_defaults(self):
         """Test for creating a new Manager object with defaults."""
