@@ -41,7 +41,7 @@ class Manager:
                 d['encrypted_username'] = self._encrypt(d['username'])
                 del d['username']
             if encrypt_password:
-                d['encrypt_password'] = self._encrypt(d['password'])
+                d['encrypted_password'] = self._encrypt(d['password'])
                 del d['password']
             doc['accounts']['data'].append(d)
         with open(json_path, 'w', encoding='UTF-8') as fp:

@@ -49,6 +49,24 @@ class TestManager:
             test_doc = json.load(fp)
         assert test_doc == TestManager._example_json
 
+    def test_manager_encrypt_then_decrypt_json(self, tmp_path: Path):
+        """Test for encrypting and decrypting json file."""
+
+        # Create account manager and append accounts.
+        old_manager = Manager(master_key=TestManager._example_master_key)
+        old_manager.accounts.extend(TestManager._example_accounts)
+
+        # Write json.
+        foo_json_path = tmp_path / 'foo.json'
+        old_manager.save_json(foo_json_path, encrypt_username=True, encrypt_password=True)
+
+        # Load json.
+        new_manager = Manager(master_key=TestManager._example_master_key)
+        new_manager.load_json(foo_json_path)
+
+        # Verify content.
+        assert new_manager.accounts == old_manager.accounts
+
     # Example data for testing.
     _example_master_key = 'ExampleMasterKey'
     _example_accounts = [
