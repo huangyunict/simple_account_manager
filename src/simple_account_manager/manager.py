@@ -15,9 +15,13 @@ class Manager:
 
     @property
     def accounts(self) -> list[Account]:
+        """The accounts property."""
+
         return self._accounts
 
     def save_json(self, json_path: Path):
+        """Save accounts to json file with encryption."""
+
         doc = {"accounts": []}
         for account in self._accounts:
             doc["accounts"].append(
@@ -29,6 +33,8 @@ class Manager:
             json.dump(doc, fp)
 
     def load_json(self, json_path: Path):
+        """Load json file with encrypted fields to accounts."""
+
         accounts = []
         with open(json_path, 'r', encoding='UTF-8') as fp:
             doc = json.load(fp)
