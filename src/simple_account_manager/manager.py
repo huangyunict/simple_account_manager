@@ -31,12 +31,18 @@ class Manager:
 
         return self._accounts
 
-    def save_json(self, json_path: Path, encrypt_username=False, encrypt_password=True):
+    def save_json(self,
+                  json_path: Path,
+                  encrypt_username=False,
+                  encrypt_password=True):
         """Save accounts to json file with encryption."""
 
         doc = {'accounts': {'version': self.version, 'data': []}}
         for account in self._accounts:
-            d = asdict(account, dict_factory=lambda x: {k: v for (k, v) in x if v is not None})
+            d = asdict(
+                account,
+                dict_factory=lambda x: {k: v
+                                        for (k, v) in x if v is not None})
             if encrypt_username:
                 d['encrypted_username'] = self._encrypt(d['username'])
                 del d['username']
@@ -75,7 +81,8 @@ class Manager:
         return self._fernet.encrypt(data.encode('UTF-8')).decode('UTF-8')
 
     def _decrypt(self, encrypted_data: str) -> str:
-        return self._fernet.decrypt(encrypted_data.encode('UTF-8')).decode('UTF-8')
+        return self._fernet.decrypt(
+            encrypted_data.encode('UTF-8')).decode('UTF-8')
 
     @staticmethod
     def _get_fernet(master_key: str) -> Fernet:
