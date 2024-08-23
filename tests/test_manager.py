@@ -42,7 +42,7 @@ class TestManager:
 
         # Write json.
         foo_json_path = tmp_path / 'foo.json'
-        manager.save_json(foo_json_path)
+        manager.save_json(foo_json_path, encrypt_username=False, encrypt_password=False)
 
         # Verify content.
         with open(foo_json_path, 'r', encoding='UTF-8') as fp:
