@@ -41,7 +41,7 @@ class TestManager:
         manager.accounts.extend(TestManager._example_accounts)
 
         # Write json.
-        foo_json_path = tmp_path / 'bar.json'
+        foo_json_path = tmp_path / 'foo.json'
         manager.save_json(foo_json_path)
 
         # Verify content.
@@ -87,69 +87,72 @@ class TestManager:
                 domain='x.com'),
     ]
     _example_json = json.loads("""{
-  "accounts": [
-    {
-      "name": "Chase_A",
-      "username": "user_A",
-      "password": "pass A",
-      "categories": [
-        "web",
-        "bank"
-      ],
-      "domain": "chase.com",
-      "notes": "Chase account A"
-    },
-    {
-      "name": "Chase_B",
-      "username": "user_B",
-      "password": "pass B",
-      "categories": [
-        "web",
-        "bank"
-      ],
-      "domain": "chase.com",
-      "notes": "Chase account B"
-    },
-    {
-      "name": "Google_C",
-      "username": "user_C",
-      "password": "pass C",
-      "categories": [
-        "email",
-        "google"
-      ],
-      "domain": "gmail.com",
-      "notes": "Google account C"
-    },
-    {
-      "name": "Google_D",
-      "username": "user_D",
-      "password": "pass D",
-      "categories": [
-        "email",
-        "google"
-      ],
-      "domain": "gmail.com"
-    },
-    {
-      "name": "Meta_E",
-      "username": "user_E",
-      "password": "pass E",
-      "categories": [
-        "social",
-        "meta"
-      ],
-      "domain": "meta.com"
-    },
-    {
-      "name": "Twitter_F",
-      "username": "user_F",
-      "password": "pass F",
-      "categories": [
-        "social",
-        "x"
-      ],
-      "domain": "x.com"
-    }
-  ]
+  "accounts": {
+    "version": "1.0",
+    "data": [
+      {
+        "name": "Chase_A",
+        "username": "user_A",
+        "password": "pass A",
+        "categories": [
+          "web",
+          "bank"
+        ],
+        "domain": "chase.com",
+        "notes": "Chase account A"
+      },
+      {
+        "name": "Chase_B",
+        "username": "user_B",
+        "password": "pass B",
+        "categories": [
+          "web",
+          "bank"
+        ],
+        "domain": "chase.com",
+        "notes": "Chase account B"
+      },
+      {
+        "name": "Google_C",
+        "username": "user_C",
+        "password": "pass C",
+        "categories": [
+          "email",
+          "google"
+        ],
+        "domain": "gmail.com",
+        "notes": "Google account C"
+      },
+      {
+        "name": "Google_D",
+        "username": "user_D",
+        "password": "pass D",
+        "categories": [
+          "email",
+          "google"
+        ],
+        "domain": "gmail.com"
+      },
+      {
+        "name": "Meta_E",
+        "username": "user_E",
+        "password": "pass E",
+        "categories": [
+          "social",
+          "meta"
+        ],
+        "domain": "meta.com"
+      },
+      {
+        "name": "Twitter_F",
+        "username": "user_F",
+        "password": "pass F",
+        "categories": [
+          "social",
+          "x"
+        ],
+        "domain": "x.com"
+      }
+    ]
+  }
 }""")

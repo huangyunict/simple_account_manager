@@ -11,7 +11,14 @@ class Manager:
     """The account manager class."""
 
     def __init__(self, master_key: str):
+        self._version = '1.0'
         self._accounts = []
+
+    @property
+    def version(self) -> str:
+        """The version property."""
+
+        return self._version
 
     @property
     def accounts(self) -> list[Account]:
@@ -22,9 +29,9 @@ class Manager:
     def save_json(self, json_path: Path):
         """Save accounts to json file with encryption."""
 
-        doc = {"accounts": []}
+        doc = {'accounts': {'version': self.version, 'data': []}}
         for account in self._accounts:
-            doc["accounts"].append(
+            doc['accounts']['data'].append(
                 asdict(account,
                        dict_factory=lambda x:
                        {k: v
@@ -38,8 +45,8 @@ class Manager:
         accounts = []
         with open(json_path, 'r', encoding='UTF-8') as fp:
             doc = json.load(fp)
-        for d in doc['accounts']:
-            print(d)
+        version = doc['accounts']['version']
+        for d in doc['accounts']['data']:
             account = Account(name=d['name'],
                               username=d['username'],
                               password=d['password'],
