@@ -54,4 +54,5 @@ class Manager:
                               domain=d.get('domain'),
                               notes=d.get('notes'))
             accounts.append(account)
+        self._version = version
         self._accounts = accounts
