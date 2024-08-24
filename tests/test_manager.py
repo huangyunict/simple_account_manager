@@ -1,4 +1,5 @@
 """Test module for the class Manager."""
+import configparser
 import json
 from pathlib import Path
 
@@ -17,7 +18,31 @@ class TestManager:
         # Verify accounts.
         assert len(manager.accounts) == 0
 
-    def test_manager_load_plain_json(self, tmp_path: Path):
+    def test_manager_load_plain_json_with_master_file(self, tmp_path: Path):
+        """Test for creating manager by loading json file and comparing the contents."""
+
+        # Prepare master file.
+        master_file = tmp_path / 'master.txt'
+        config = configparser.ConfigParser()
+        config['metadata'] = {'version': '1.0'}
+        config['encryption'] = {'master_key': TestManager._example_master_key}
+        with open(master_file, 'w', encoding='UTF-8') as fp:
+            config.write(fp)
+
+        # Prepare json.
+        foo_json_path = tmp_path / 'foo.json'
+        with open(foo_json_path, 'w', encoding='UTF-8') as fp:
+            json.dump(TestManager._example_json, fp)
+
+        # Create account manager from the json file.
+        manager = Manager(master_file=master_file)
+        manager.load_json(foo_json_path)
+
+        # Verify accounts.
+        assert len(manager.accounts) == len(TestManager._example_accounts)
+        assert manager.accounts == TestManager._example_accounts
+
+    def test_manager_load_plain_json_with_master_key(self, tmp_path: Path):
         """Test for creating manager by loading json file and comparing the contents."""
 
         # Prepare json.

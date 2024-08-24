@@ -1,6 +1,7 @@
 """Module that defines the main class Manager."""
 
 from base64 import b64encode
+import configparser
 from dataclasses import asdict
 import hashlib
 import json
@@ -12,11 +13,23 @@ from src.simple_account_manager.account import Account
 
 
 class Manager:
-    """The account manager class."""
+    """The account manager class.
 
-    def __init__(self, master_key: str):
+    Args:
+        master_key (str): The master key. If given, override master_file.
+        master_file (Path): The file to read master key from, in Python
+            config format. If not given, default to
+            `$HOME/.simple_account_manager/master_key.txt`.
+    """
+
+    def __init__(self, master_key: str = None, master_file: Path = None):
         self._version = '1.0'
         self._accounts = []
+        if master_key is None:
+            if master_file is None:
+                master_file = Path.home(
+                ) / '.simple_account_manager' / 'master_key.txt'
+            master_key = Manager._load_master_key(master_file)
         self._fernet = self._get_fernet(master_key)
 
     @property
@@ -83,6 +96,14 @@ class Manager:
     def _decrypt(self, encrypted_data: str) -> str:
         return self._fernet.decrypt(
             encrypted_data.encode('UTF-8')).decode('UTF-8')
+
+    @staticmethod
+    def _load_master_key(master_file: Path) -> str:
+        config = configparser.ConfigParser()
+        with open(master_file, 'r', encoding='UTF-8') as fp:
+            config.read_file(fp)
+        # read key
+        return config['encryption']['master_key'].strip()
 
     @staticmethod
     def _get_fernet(master_key: str) -> Fernet:
