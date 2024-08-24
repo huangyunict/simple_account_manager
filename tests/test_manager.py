@@ -22,7 +22,7 @@ class TestManager:
         """Test for creating manager by loading json file and comparing the contents."""
 
         # Prepare master file.
-        master_file = tmp_path / 'master.txt'
+        master_file = tmp_path / 'master.cfg'
         config = configparser.ConfigParser()
         config['metadata'] = {'version': '1.0'}
         config['encryption'] = {'master_key': TestManager._example_master_key}
