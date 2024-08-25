@@ -19,7 +19,7 @@ class Manager:
         master_key (str): The master key. If given, override master_file.
         master_file (Path): The file to read master key from, in Python
             config format. If not given, default to
-            `$HOME/.simple_account_manager/master_key.txt`.
+            `$HOME/.simple_account_manager/master_key.cfg`.
     """
 
     def __init__(self, master_key: str = None, master_file: Path = None):
@@ -28,7 +28,7 @@ class Manager:
         if master_key is None:
             if master_file is None:
                 master_file = Path.home(
-                ) / '.simple_account_manager' / 'master_key.txt'
+                ) / '.simple_account_manager' / 'master_key.cfg'
             master_key = Manager._load_master_key(master_file)
         self._fernet = self._get_fernet(master_key)
 
