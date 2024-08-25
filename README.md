@@ -30,3 +30,9 @@ version = 1.0
 master_key = ExamplePassword
 ```
 
+## JSON file format
+
+The plain JSON example: [example.plain.json](docs/example.plain.json).
+
+The JSON example with encrypted password: [example.encrypted.json](docs/example.encrypted.json).
+
