@@ -35,4 +35,3 @@ master_key = ExamplePassword
 The plain JSON example: [example.plain.json](docs/example.plain.json).
 
 The JSON example with encrypted password: [example.encrypted.json](docs/example.encrypted.json).
-
